@@ -255,6 +255,10 @@ a:hover { color: var(--accent-hover); }
   gap: 1.5rem;
 }
 
+.timeline-content {
+  min-width: 0;
+}
+
 .timeline-date {
   color: var(--text-muted);
   font-size: 0.9rem;
