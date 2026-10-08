@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day Zero Plan — Divesh Anand</title>
+  <meta name="description" content="Divesh Anand's 90-day marketing plan and analytics dashboard, built for the Urban Company UAE Marketing Intern role (WIL). An independent applicant project — not affiliated with Urban Company.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --bg-alt: #f2f0ea;
+      --card: #ffffff;
+      --text: #15161a;
+      --muted: #5d616b;
+      --border: #e3e0d8;
+      --accent: #0f766e;
+      --accent-soft: #d6efec;
+      --warm: #c2410c;
+      --warm-soft: #fde6d8;
+      --bar: #0f766e;
+      --bar-2: #94a3b8;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0f1012; --bg-alt: #16171a; --card: #1a1b1f; --text: #f1f1ee; --muted: #a3a6ad;
+        --border: #2b2d33; --accent: #2dd4bf; --accent-soft: #123532; --warm: #fb923c; --warm-soft: #3a2316;
+        --bar: #2dd4bf; --bar-2: #4b5563; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0f1012; --bg-alt: #16171a; --card: #1a1b1f; --text: #f1f1ee; --muted: #a3a6ad;
+      --border: #2b2d33; --accent: #2dd4bf; --accent-soft: #123532; --warm: #fb923c; --warm-soft: #3a2316;
+      --bar: #2dd4bf; --bar-2: #4b5563; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+    /* Top bar */
+    .topbar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 12px; }
+    .topbar a.back { color: var(--muted); text-decoration: none; font-size: .9rem; white-space: nowrap; }
+    .topbar nav { display: none; gap: 20px; }
+    .topbar nav a { color: var(--muted); text-decoration: none; font-size: .88rem; }
+    .topbar nav a:hover { color: var(--text); }
+    @media (min-width: 860px) { .topbar nav { display: flex; } }
+    .theme { background: none; border: 1px solid var(--border); color: var(--text); border-radius: 8px;
+      padding: 4px 10px; cursor: pointer; font-size: .9rem; }
+
+    /* Hero */
+    .hero { padding: 72px 0 48px; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-size: .78rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    h1 { font-size: clamp(2rem, 5.4vw, 3.6rem); line-height: 1.08; letter-spacing: -.025em; margin: 16px 0 20px; max-width: 16ch; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lede { font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--muted); max-width: 62ch; margin: 0 0 28px; }
+    .lede strong { color: var(--text); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { font-size: .82rem; padding: 6px 12px; border-radius: 999px; background: var(--card);
+      border: 1px solid var(--border); color: var(--muted); }
+    .chip b { color: var(--text); font-weight: 600; }
+
+    section { padding: 56px 0; border-top: 1px solid var(--border); }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -.02em; margin: 0 0 8px; line-height: 1.2; }
+    .kicker { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); margin-bottom: 8px; }
+    .sub { color: var(--muted); max-width: 64ch; margin: 0 0 32px; }
+    h3 { margin: 0 0 6px; font-size: 1.05rem; letter-spacing: -.01em; }
+
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 720px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); }
+    .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .note { font-size: .8rem; color: var(--muted); margin-top: 14px; }
+
+    /* Fit table */
+    .fit { width: 100%; border-collapse: collapse; font-size: .94rem; }
+    .fit th, .fit td { text-align: left; padding: 14px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .fit th { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+    .fit td:first-child { font-weight: 600; width: 30%; }
+    .fit td:last-child { color: var(--muted); }
+    @media (max-width: 640px) {
+      .fit thead { display: none; }
+      .fit tr { display: block; padding: 12px 0; border-bottom: 1px solid var(--border); }
+      .fit td { display: block; padding: 2px 0; border: 0; width: auto !important; }
+    }
+
+    /* Stats */
+    .stat .num { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .stat .lbl { font-size: .86rem; color: var(--muted); margin-top: 4px; }
+
+    /* Season calendar */
+    .season { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin-top: 8px; }
+    .season .m { font-size: .7rem; text-align: center; color: var(--muted); }
+    .lane { display: grid; grid-template-columns: 140px 1fr; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+    .lane .name { font-size: .86rem; font-weight: 600; }
+    .lane .track { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; }
+    .lane .cell { height: 22px; border-radius: 4px; background: var(--bg-alt); }
+    .lane .cell.on { background: var(--accent); }
+    .lane .cell.peak { background: var(--warm); }
+    @media (max-width: 560px) { .lane { grid-template-columns: 1fr; gap: 4px; } .season-head { margin-left: 0 !important; } }
+    .legend { display: flex; gap: 16px; font-size: .8rem; color: var(--muted); margin-top: 12px; flex-wrap: wrap; }
+    .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+
+    /* Dashboard */
+    .dash { display: grid; gap: 16px; }
+    @media (min-width: 900px) { .dash { grid-template-columns: 360px 1fr; } }
+    .ctrl { display: grid; gap: 18px; }
+    .ctrl label { display: flex; justify-content: space-between; font-size: .86rem; color: var(--muted); margin-bottom: 6px; }
+    .ctrl label output { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+    input[type=range] { width: 100%; accent-color: var(--accent); }
+    .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (min-width: 560px) { .kpis { grid-template-columns: repeat(3, 1fr); } }
+    .kpi { background: var(--bg-alt); border-radius: 10px; padding: 14px; }
+    .kpi .v { font-size: 1.45rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+    .kpi .k { font-size: .76rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .verdict { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: .92rem; background: var(--accent-soft); }
+    .verdict.bad { background: var(--warm-soft); }
+
+    .funnel { display: grid; gap: 10px; margin-top: 8px; }
+    .frow { display: grid; grid-template-columns: 120px 1fr 64px; gap: 10px; align-items: center; font-size: .86rem; }
+    .frow .bar { height: 26px; background: var(--bar); border-radius: 5px; transition: width .4s ease; min-width: 2px; }
+    .frow .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+    .frow .drop { grid-column: 2 / 4; font-size: .74rem; color: var(--muted); margin-top: -6px; }
+
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .tabs button { font: inherit; font-size: .84rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--card); color: var(--muted); cursor: pointer; }
+    .tabs button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    .hbar { display: grid; grid-template-columns: 130px 1fr 72px; gap: 10px; align-items: center; font-size: .86rem; padding: 5px 0; }
+    .hbar .t { height: 18px; background: var(--bg-alt); border-radius: 4px; overflow: hidden; }
+    .hbar .f { height: 100%; background: var(--bar); border-radius: 4px; transition: width .4s ease; }
+    .hbar .f.hi { background: var(--warm); }
+    .hbar .n { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Campaigns */
+    .camp { display: flex; flex-direction: column; gap: 12px; }
+    .camp .tag { align-self: flex-start; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 6px; background: var(--warm-soft); color: var(--warm); }
+    .camp blockquote { margin: 0; padding: 12px 14px; border-left: 3px solid var(--accent); background: var(--bg-alt);
+      border-radius: 0 8px 8px 0; font-size: .95rem; font-style: italic; }
+    .camp dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: .86rem; }
+    .camp dt { color: var(--muted); }
+    .camp dd { margin: 0; }
+
+    /* Plan */
+    .plan { counter-reset: m; }
+    .phase { position: relative; padding-left: 56px; }
+    .phase::before { counter-increment: m; content: counter(m); position: absolute; left: 0; top: 0; width: 38px; height: 38px;
+      border-radius: 50%; display: grid; place-items: center; font-weight: 700; background: var(--accent); color: var(--bg); }
+    .phase ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); font-size: .93rem; }
+    .phase li { margin-bottom: 4px; }
+    .phase .out { margin-top: 10px; font-size: .86rem; }
+    .phase .out b { color: var(--accent); }
+
+    /* Close */
+    .close { text-align: center; padding: 80px 0 96px; }
+    .close h2 { max-width: 22ch; margin: 0 auto 16px; }
+    .close p { color: var(--muted); max-width: 56ch; margin: 0 auto 28px; }
+    .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: .95rem; }
+    .btn.p { background: var(--accent); color: var(--bg); }
+    .btn.s { border: 1px solid var(--border); color: var(--text); background: var(--card); }
+    footer { border-top: 1px solid var(--border); padding: 24px 0 40px; font-size: .8rem; color: var(--muted); }
+
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .frow .bar, .hbar .f { transition: none; } }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="back" href="../index.html">← Divesh Anand</a>
+    <nav aria-label="Sections">
+      <a href="#fit">Fit</a>
+      <a href="#market">Market</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#campaigns">Campaigns</a>
+      <a href="#plan">90 days</a>
+    </nav>
+    <button class="theme" id="theme" aria-label="Toggle dark mode">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <span class="eyebrow">Marketing Intern application · WIL · Urban Company UAE</span>
+    <h1>I didn't want to <em>tell</em> you I can do marketing. So I started.</h1>
+    <p class="lede">
+      This is the work I'd bring to Urban Company's UAE marketing team in my first 90 days —
+      <strong>a read of the market, a live campaign economics model, three ready-to-test campaigns,
+      and a week-by-week plan.</strong> Built by an MBA (International Business &amp; Marketing) candidate
+      in Dubai who spent four years as a Big Data Analyst at Accenture.
+    </p>
+    <div class="chips">
+      <span class="chip"><b>IMT Dubai</b> · PGDM, IB &amp; Marketing</span>
+      <span class="chip"><b>4 yrs</b> · Big Data Analyst, Accenture</span>
+      <span class="chip"><b>Dubai-based</b> · available for the full 3 months</span>
+    </div>
+  </div>
+
+  <!-- FIT -->
+  <section id="fit">
+    <div class="wrap">
+      <div class="kicker">01 · Why this role, why me</div>
+      <h2>A marketing intern who can also build the dashboard.</h2>
+      <p class="sub">Most marketing interns can write the post. Fewer can tell you which post paid for itself. The role asks for an IB major; here's what comes with this one.</p>
+      <div class="card reveal">
+        <table class="fit">
+          <thead><tr><th>What the role needs</th><th>What I bring</th></tr></thead>
+          <tbody>
+            <tr><td>International Business specialisation</td><td>PGDM in International Business &amp; Marketing, IMT Dubai — Market Entry Strategy, Consumer Insights &amp; Analytics, Digital &amp; Social Media Marketing.</td></tr>
+            <tr><td>Understanding of the UAE customer</td><td>Living and studying in Dubai; currently a Market Research Intern at Fillit Diesel Trading, building a competitor-benchmarked database and KPI-linked reports for a local GTM push.</td></tr>
+            <tr><td>Performance &amp; growth marketing</td><td>Google certifications in Digital Marketing &amp; E-commerce; growth-marketing and MVP-validation research with Finlatics.</td></tr>
+            <tr><td>Data-driven decisions</td><td>4 years at Accenture on large-scale data platforms (Spark, Hive, BigQuery), led a CDP → GCP migration. Fluent in SQL, Python, Tableau, Power BI.</td></tr>
+            <tr><td>Campaign thinking</td><td>Built an integrated campaign for Glow &amp; Lovely (HUL): STP, Gen-Z repositioning, experiential + digital sampling with bounce-back coupons.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section id="market">
+    <div class="wrap">
+      <div class="kicker">02 · Reading the market</div>
+      <h2>In the UAE, home services run on a calendar, not just a need.</h2>
+      <p class="sub">The UAE household is expat-heavy, digitally native, time-poor, and lives through a 45°C summer. That shapes <em>when</em> people book and <em>why</em> — which is where marketing either wins or wastes money.</p>
+
+      <div class="grid g4 reveal">
+        <div class="card stat"><div class="num">~88%</div><div class="lbl">of UAE residents are expatriates — households that often arrived without a trusted local network of service pros.</div></div>
+        <div class="card stat"><div class="num">~99%</div><div class="lbl">internet penetration — one of the highest globally. The first touchpoint is almost always a phone.</div></div>
+        <div class="card stat"><div class="num">45°C+</div><div class="lbl">summer peaks. AC servicing isn't a nice-to-have; a failed unit in July is an emergency.</div></div>
+        <div class="card stat"><div class="num">~4M</div><div class="lbl">people in Dubai alone, with constant inflow — every new tenant is a new customer with zero brand loyalty yet.</div></div>
+      </div>
+      <p class="note">Rounded public figures (UAE government / Dubai Statistics Center / ITU), used here for direction, not precision.</p>
+
+      <div class="card reveal" style="margin-top:24px">
+        <h3>Demand calendar — where I'd point the budget</h3>
+        <p>My hypothesis of category demand by month. Month 1 of the internship would be spent validating this against real booking data.</p>
+        <div class="season-head" style="margin-left:152px">
+          <div class="season">
+            <span class="m">J</span><span class="m">F</span><span class="m">M</span><span class="m">A</span><span class="m">M</span><span class="m">J</span>
+            <span class="m">J</span><span class="m">A</span><span class="m">S</span><span class="m">O</span><span class="m">N</span><span class="m">D</span>
+          </div>
+        </div>
+        <div id="lanes"></div>
+        <div class="legend"><span><i style="background:var(--warm)"></i>Peak — lead with this</span><span><i style="background:var(--accent)"></i>Elevated</span><span><i style="background:var(--bg-alt);border:1px solid var(--border)"></i>Baseline</span></div>
+        <p class="note">Ramadan and Eid move ~11 days earlier each year; the lanes show the 2027 window (Ramadan ≈ Feb, Eid al-Adha ≈ May).</p>
+      </div>
+
+      <div class="grid g3 reveal" style="margin-top:24px">
+        <div class="card"><h3>The new mover</h3><p>Just signed an Ejari in JVC or Dubai Marina. Needs deep cleaning, pest control, painting, AC check — all in one week. Highest-intent customer in the market, and nobody owns them yet.</p></div>
+        <div class="card"><h3>The dual-income family</h3><p>Villa or 3BR in Mirdif or Arabian Ranches. Books cleaning on repeat, salon at home on weekends. Wants consistency and the same trusted professional — a retention play, not an acquisition one.</p></div>
+        <div class="card"><h3>The summer leaver</h3><p>Flies home July–August. Worries about the AC, plants, and dust in an empty flat. Under-served: a "home care while you're away" bundle doesn't really exist as a product story.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard">
+    <div class="wrap">
+      <div class="kicker">03 · The dashboard</div>
+      <h2>Will this campaign pay for itself? Drag the sliders.</h2>
+      <p class="sub">The question I'd ask before spending a single dirham. This model connects ad spend to bookings, contribution, and payback — the way a marketing team should decide, not the way most do.</p>
+
+      <div class="dash">
+        <div class="card ctrl reveal">
+          <div><label for="budget">Monthly ad budget <output id="o-budget"></output></label><input id="budget" type="range" min="5000" max="100000" step="1000" value="25000"></div>
+          <div><label for="cpc">Cost per click <output id="o-cpc"></output></label><input id="cpc" type="range" min="0.5" max="8" step="0.1" value="2.8"></div>
+          <div><label for="cvr">Click → first booking <output id="o-cvr"></output></label><input id="cvr" type="range" min="0.5" max="12" step="0.1" value="3.5"></div>
+          <div><label for="aov">Average order value <output id="o-aov"></output></label><input id="aov" type="range" min="60" max="600" step="5" value="220"></div>
+          <div><label for="take">Platform take rate <output id="o-take"></output></label><input id="take" type="range" min="5" max="40" step="1" value="22"></div>
+          <div><label for="rep">Repeat bookings / customer / yr <output id="o-rep"></output></label><input id="rep" type="range" min="0" max="12" step="0.5" value="3"></div>
+          <p class="note" style="margin:0">All defaults are illustrative assumptions, not Urban Company data.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="kpis">
+            <div class="kpi"><div class="k">Clicks</div><div class="v" id="k-clicks"></div></div>
+            <div class="kpi"><div class="k">New customers</div><div class="v" id="k-cust"></div></div>
+            <div class="kpi"><div class="k">CAC</div><div class="v" id="k-cac"></div></div>
+            <div class="kpi"><div class="k">1st-year GMV</div><div class="v" id="k-gmv"></div></div>
+            <div class="kpi"><div class="k">LTV : CAC</div><div class="v" id="k-ratio"></div></div>
+            <div class="kpi"><div class="k">Payback</div><div class="v" id="k-pay"></div></div>
+          </div>
+          <div class="verdict" id="verdict"></div>
+
+          <h3 style="margin-top:24px">Acquisition funnel</h3>
+          <div class="funnel" id="funnel"></div>
+        </div>
+      </div>
+
+      <div class="card reveal" style="margin-top:16px">
+        <h3>Channel scorecard</h3>
+        <p style="margin-bottom:14px">What a weekly channel review would look like. Switch the metric — the "best" channel changes depending on what you ask.</p>
+        <div class="tabs" role="group" aria-label="Metric">
+          <button data-m="cac" aria-pressed="true">CAC (AED)</button>
+          <button data-m="roas">ROAS</button>
+          <button data-m="rep">90-day repeat %</button>
+        </div>
+        <div id="channels"></div>
+        <p class="note">Illustrative sample data, designed to show the analysis — the highlighted bar is the leader on the chosen metric. The insight I'd look for: a channel with higher CAC but stronger repeat (e.g. referrals) can be the better buy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPAIGNS -->
+  <section id="campaigns">
+    <div class="wrap">
+      <div class="kicker">04 · Ready-to-test ideas</div>
+      <h2>Three campaigns, each tied to a moment that already exists.</h2>
+      <p class="sub">Good home-services marketing doesn't invent demand. It shows up, with the right offer, at the exact moment the need appears.</p>
+
+      <div class="grid g3">
+        <article class="card camp reveal">
+          <span class="tag">Mar – May · AC</span>
+          <h3>Beat the Heat Before It Beats You</h3>
+          <blockquote>"Your AC has worked hard all winter doing nothing. Give it a check-up before it has to save your summer."</blockquote>
+          <dl>
+            <dt>Audience</dt><dd>Apartment renters, last AC service &gt; 6 months</dd>
+            <dt>Channels</dt><dd>Google Search, Meta, in-app push</dd>
+            <dt>Hook</dt><dd>Book in April, priority slot guaranteed in July</dd>
+            <dt>KPI</dt><dd>Pre-season bookings, July repeat rate</dd>
+          </dl>
+        </article>
+
+        <article class="card camp reveal">
+          <span class="tag">Always-on · Movers</span>
+          <h3>Day One, Done.</h3>
+          <blockquote>"New keys. New neighbourhood. Same exhausting to-do list — except now it's one booking."</blockquote>
+          <dl>
+            <dt>Audience</dt><dd>New tenants, first 30 days after move-in</dd>
+            <dt>Channels</dt><dd>Property-portal &amp; brokerage partnerships, building QR codes</dd>
+            <dt>Hook</dt><dd>Move-in bundle: deep clean + pest control + AC</dd>
+            <dt>KPI</dt><dd>Bundle attach rate, 90-day retention</dd>
+          </dl>
+        </article>
+
+        <article class="card camp reveal">
+          <span class="tag">Jun – Aug · Summer</span>
+          <h3>Go Home. We'll Mind Yours.</h3>
+          <blockquote>"Ten weeks in Kochi, Manchester or Manila. Come back to a cool, clean home — not a dust storm."</blockquote>
+          <dl>
+            <dt>Audience</dt><dd>Expat families travelling for summer</dd>
+            <dt>Channels</dt><dd>Instagram Reels, school &amp; community WhatsApp groups, email</dd>
+            <dt>Hook</dt><dd>Pre-departure AC service + welcome-back deep clean</dd>
+            <dt>KPI</dt><dd>Pre-booked return-cleans, referral shares</dd>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="plan">
+    <div class="wrap">
+      <div class="kicker">05 · The 90-day plan</div>
+      <h2>Three months. Three outcomes you can measure.</h2>
+      <p class="sub">An internship is short. Here's how I'd make sure it leaves something behind that the team keeps using.</p>
+
+      <div class="grid g3 plan">
+        <div class="card phase reveal">
+          <h3>Learn &amp; audit</h3>
+          <p>Weeks 1–4</p>
+          <ul>
+            <li>Shadow performance, brand and CRM teams</li>
+            <li>Audit current funnel and channel reporting</li>
+            <li>Teardown of competitor offers and creatives in the UAE</li>
+            <li>Validate the demand calendar with booking data</li>
+          </ul>
+          <p class="out"><b>Output:</b> a one-page funnel diagnosis with the top 3 leaks.</p>
+        </div>
+        <div class="card phase reveal">
+          <h3>Build &amp; test</h3>
+          <p>Weeks 5–8</p>
+          <ul>
+            <li>Launch 1–2 small, well-scoped campaign tests</li>
+            <li>Write A/B variants for ads, push and email copy</li>
+            <li>Build a weekly channel scorecard (CAC, ROAS, repeat)</li>
+            <li>Interview 10–15 customers on why they rebook</li>
+          </ul>
+          <p class="out"><b>Output:</b> live test results with a clear keep / kill / scale call.</p>
+        </div>
+        <div class="card phase reveal">
+          <h3>Scale &amp; hand over</h3>
+          <p>Weeks 9–12</p>
+          <ul>
+            <li>Double down on the winning test</li>
+            <li>Automate the scorecard in Power BI / Looker Studio</li>
+            <li>Document playbooks for the next seasonal peak</li>
+            <li>Present findings to the marketing lead</li>
+          </ul>
+          <p class="out"><b>Output:</b> a dashboard and playbook the team keeps after I leave.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap close">
+    <div class="kicker">The short version</div>
+    <h2>I'm ready to start on day one, because I already have.</h2>
+    <p>I'd love the chance to test these ideas against real data — and to be told where I'm wrong. That's the fastest way I know to learn.</p>
+    <div class="btns">
+      <a class="btn p" href="mailto:gr8diveshanand@gmail.com?subject=Marketing%20Intern%20(WIL)%20%E2%80%94%20Divesh%20Anand">Email me</a>
+      <a class="btn s" href="https://www.linkedin.com/in/divesh-anand-343136174/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn s" href="../resume.docx" download>Résumé</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    An independent applicant project by Divesh Anand. Not affiliated with, endorsed by, or built with data from Urban Company.
+    Figures in the dashboard and scorecard are illustrative assumptions.
+  </div>
+</footer>
+
+<script>
+  // Theme — shares the "theme" key with the main portfolio
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+  document.getElementById('theme').addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = dark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  // Demand calendar: 0 = baseline, 1 = elevated, 2 = peak (Jan..Dec)
+  const lanes = [
+    ['AC service',      [0,0,1,2,2,2,2,1,1,0,0,0]],
+    ['Deep cleaning',   [2,2,1,0,1,0,0,1,1,0,1,2]],
+    ['Pest control',    [0,0,1,1,1,0,0,0,1,2,1,0]],
+    ['Salon at home',   [1,2,1,0,2,0,0,0,0,1,1,2]],
+    ['Move-in / out',   [0,0,0,0,0,1,2,2,2,1,0,0]],
+  ];
+  document.getElementById('lanes').innerHTML = lanes.map(([name, v]) =>
+    `<div class="lane"><span class="name">${name}</span><div class="track">${
+      v.map(x => `<span class="cell ${x === 2 ? 'peak' : x === 1 ? 'on' : ''}"></span>`).join('')
+    }</div></div>`).join('');
+
+  // Campaign economics model
+  const $ = id => document.getElementById(id);
+  const aed = n => 'AED ' + Math.round(n).toLocaleString('en-US');
+  const ids = ['budget', 'cpc', 'cvr', 'aov', 'take', 'rep'];
+  const fmt = {
+    budget: v => aed(v), cpc: v => 'AED ' + v.toFixed(2), cvr: v => v.toFixed(1) + '%',
+    aov: v => aed(v), take: v => v + '%', rep: v => v.toFixed(1),
+  };
+
+  function model() {
+    const v = Object.fromEntries(ids.map(k => [k, parseFloat($(k).value)]));
+    ids.forEach(k => $('o-' + k).textContent = fmt[k](v[k]));
+
+    const clicks = v.budget / v.cpc;
+    const visits = clicks * 0.82;                 // assumed landing-page load / bounce loss
+    const starts = visits * 0.28;                 // assumed service-selection rate
+    const cust = clicks * v.cvr / 100;
+    const cac = cust ? v.budget / cust : 0;
+    const ordersYr = 1 + v.rep;
+    const gmv = cust * v.aov * ordersYr;
+    const contribPerCust = v.aov * ordersYr * v.take / 100;
+    const ratio = cac ? contribPerCust / cac : 0;
+    const monthlyContrib = contribPerCust / 12;
+    const payback = monthlyContrib ? cac / monthlyContrib : Infinity;
+
+    $('k-clicks').textContent = Math.round(clicks).toLocaleString('en-US');
+    $('k-cust').textContent = Math.round(cust).toLocaleString('en-US');
+    $('k-cac').textContent = aed(cac);
+    $('k-gmv').textContent = gmv >= 1e6 ? 'AED ' + (gmv / 1e6).toFixed(2) + 'M' : aed(gmv);
+    $('k-ratio').textContent = ratio.toFixed(1) + '×';
+    $('k-pay').textContent = payback > 24 ? '24+ mo' : payback.toFixed(1) + ' mo';
+
+    const vd = $('verdict');
+    if (ratio >= 3) {
+      vd.className = 'verdict';
+      vd.innerHTML = `<b>Scale it.</b> Each customer returns ${ratio.toFixed(1)}× their acquisition cost in year one. The next lever is budget — until CPC starts to rise.`;
+    } else if (ratio >= 1) {
+      vd.className = 'verdict';
+      vd.innerHTML = `<b>Profitable, but thin.</b> Before adding budget, lift repeat rate — at ${v.rep.toFixed(1)} repeat bookings, retention is cheaper growth than acquisition.`;
+    } else {
+      vd.className = 'verdict bad';
+      vd.innerHTML = `<b>Losing money on every customer.</b> CAC of ${aed(cac)} beats first-year contribution of ${aed(contribPerCust)}. Fix conversion or targeting before spending more.`;
+    }
+
+    const steps = [
+      ['Ad clicks', clicks], ['Landing visits', visits], ['Service selected', starts], ['First booking', cust],
+    ];
+    $('funnel').innerHTML = steps.map(([label, n], i) => {
+      const w = Math.max(n / clicks * 100, 0.6);
+      const drop = i ? `<span class="drop">${(n / steps[i - 1][1] * 100).toFixed(0)}% of previous step</span>` : '';
+      return `<div class="frow"><span>${label}</span><div class="bar" style="width:${w}%"></div><span class="val">${Math.round(n).toLocaleString('en-US')}</span>${drop}</div>`;
+    }).join('');
+  }
+  ids.forEach(k => $(k).addEventListener('input', model));
+  model();
+
+  // Channel scorecard (illustrative)
+  const channels = [
+    { name: 'Google Search', cac: 58,  roas: 3.4, rep: 31 },
+    { name: 'Meta (IG / FB)', cac: 74,  roas: 2.6, rep: 24 },
+    { name: 'TikTok',         cac: 92,  roas: 1.9, rep: 18 },
+    { name: 'Referral',       cac: 81,  roas: 4.1, rep: 46 },
+    { name: 'SEO / organic',  cac: 22,  roas: 6.8, rep: 35 },
+    { name: 'Partnerships',   cac: 66,  roas: 3.0, rep: 39 },
+  ];
+  const unit = { cac: v => 'AED ' + v, roas: v => v.toFixed(1) + '×', rep: v => v + '%' };
+  function renderChannels(m) {
+    const max = Math.max(...channels.map(c => c[m]));
+    const best = m === 'cac' ? Math.min(...channels.map(c => c.cac)) : max;
+    $('channels').innerHTML = [...channels].sort((a, b) => m === 'cac' ? a.cac - b.cac : b[m] - a[m]).map(c =>
+      `<div class="hbar"><span>${c.name}</span><div class="t"><div class="f ${c[m] === best ? 'hi' : ''}" style="width:${c[m] / max * 100}%"></div></div><span class="n">${unit[m](c[m])}</span></div>`
+    ).join('');
+  }
+  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    renderChannels(b.dataset.m);
+  }));
+  renderChannels('cac');
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
